@@ -2,22 +2,25 @@ const THREE = require("three");
 import { LoadSvg } from '../loader/index'
 import GetBox from '../tools/getBox';
 import AstarCreate from '../astar/index'
+import Load from '../loading/index';
 export default class MadeMap {
   paths: any
   graph = []
   length: number
   star: any
   end: any
-  pointArr:any
-  lead:any
+  pointArr: any
+  lead: any
+  load: any
   constructor() {
     // new LoadSvg('./static/svg/maze.svg')
+    this.load = new Load()
+    this.load.start()
     new LoadSvg('./static/svg/01 pass.svg')
       .create()
       .then((data: any) => {
         this.paths = data.paths
         this.length = data.paths.length
-        console.log(this.paths)
         this.createMap()
       })
   }
@@ -34,7 +37,9 @@ export default class MadeMap {
     const win: any = window
     const group = new THREE.Group()
     var nodeRow = []
+    win.maze.scene.add(group)
     // console.log(Math.sqrt(this.length))
+    console.log(this.paths)
     this.paths.forEach((path: any, index: number) => {
       if (index !== 0) {
         if (index % Math.sqrt(this.length) === 0) {
@@ -49,6 +54,7 @@ export default class MadeMap {
       } else {
         nodeRow.push(0)
       }
+      
       var shapes = path.toShapes(true);
       shapes.forEach((shape: any) => {
         let extrudeGeo = this.createExtrudeGeometry(shape);
@@ -65,7 +71,7 @@ export default class MadeMap {
       })
       const size = new GetBox(group).getSize()
       // const p = new THREE.Vector3(0, size.y, 0)
-      console.log(size)
+      // console.log(size)
       const p = new THREE.Vector3(-size.x / 2, size.y, -size.z / 2)
       group.position.copy(p)
 
@@ -89,22 +95,23 @@ export default class MadeMap {
             endPoint.position.copy(wV3)
             this.end = endPoint
           }
-        } 
+        }
       })
-
+      if (index === this.length - 1) {
+        this.load.end()
+      }
     });
-    win.maze.scene.add(group)
+
     this.pointArr = new AstarCreate(this.star, this.end, this.graph)
     this.lead.userData.actionRoute = this.pointArr
   }
   createExtrudeGeometry(shape: any) {
     return new THREE.ExtrudeGeometry(shape, {
-      depth: 5,
       bevelEnabled: false,
       bevelThickness: 1.5,
       bevelSize: 1,
       bevelSegments: 5,
-      amount: 10
+      depth: 10
     });
   }
 }

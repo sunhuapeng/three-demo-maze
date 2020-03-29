@@ -42,7 +42,7 @@ module.exports = {
     ]
   },
   devServer: {
-    host: "192.168.12.14",
+    host: "localhost",
     port: "3001",
     disableHostCheck: true // 取消host检查
   },

@@ -232,6 +232,9 @@ export default class CreateLead {
       var raycaster = new THREE.Raycaster(star, dir.clone());
       var rayNegate = new THREE.Raycaster(star, dir.clone().negate());
       // this.crteateLine(star,dir)
+      if(!mate || !mate.children){
+        return 
+      }
       var intersects = raycaster.intersectObjects(mate.children);
       var intersectsNegate = rayNegate.intersectObjects(mate.children);
 
