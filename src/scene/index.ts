@@ -5,6 +5,7 @@ const THREE = require("three");
 const TWEEN = require("@tweenjs/tween.js");
 import '../style/index.less'
 import '../style/clear-style.less'
+import DrawMap from '../draw-map/index';
 export default class Made {
   private scene: any //场景
   private camera: any; //相机
@@ -12,6 +13,8 @@ export default class Made {
   private controls: any; //控制器
   private labelRenderer: any; //2d渲染器
   private Lead: any //被控制的主角
+  private getMap: any //地图
+  private Map: any //地图
   constructor() {
     this.created()
   }
@@ -22,37 +25,18 @@ export default class Made {
     this.renderer = initRenderer()
     this.labelRenderer = initRenderer2D()
     this.controls = initControls(this.camera, this.renderer);
-    // this.scene.add(initDirectional())
     this.scene.add(initAmbientLight())
     const spotL = spotLight()
     this.scene.add(spotL)
     this.scene.add(spotLightHelper(spotL))
     this.scene.add(helper())
-    // this.scene.add(box())
-    this.scene.add(back())
+    // this.scene.add(back())
 
-    document.addEventListener('keydown', () => {
-      this.onKeyDown(event)
-    }, false);
+    // 加载glft地图
+    let url = './static/gltf/map.gltf'
+    this.getMap = new DrawMap(url)
+
     window.addEventListener("resize", () => { this.onWindowResized(); }, false);
-  }
-
-  onKeyDown(event: any) {
-    const c = event.keyCode
-    switch (c) {
-      case 37:
-        this.Lead.keyDown(c)
-        break
-      case 38:
-        this.Lead.keyDown(c)
-        break
-      case 39:
-        this.Lead.keyDown(c)
-        break
-      case 40:
-        this.Lead.keyDown(c)
-        break
-    }
   }
 
   onWindowResized() {
