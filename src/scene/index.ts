@@ -83,43 +83,46 @@ export default class Made {
   }
 }
 
-  const win: any = window
-  const maze: any = new Made()
-  win.maze = maze
-  maze.render()
-  let btn = document.getElementById('btn')
-  if (btn) {
-    btn.onclick = () => {
-      const lead = maze.Lead.lead
-      const actionRoute = lead.userData.actionRoute
-      if (actionRoute && actionRoute.length !== 0) {
-        // 开始运动
-        for (let i = 0; i < actionRoute.length; i++) {
-          const ar = actionRoute[i]
-          // console.log(ar)
-          // if (i === 2) {
-          // TODO: 20应该为单元格的尺寸 需要动态识别  10是单元格的一半
-          // console.log(ar.x)
-          const v3 = new THREE.Vector3(
-            ar.y * 10 + 5 - 200,
-            20,
-            ar.x * 10 + 5 - 200
-          )
-          // console.log(v3)
-          createEndPoint(v3)
-          lead.position.copy(v3)
-          // }
+let gameStar = document.getElementById('game-star')
+let operative: any = document.querySelector('.operative')
+if (gameStar) {
+  gameStar.onclick = function () {
+    if (operative) {
+      operative.style.display = 'none'
+    }
+    const win: any = window
+    const maze: any = new Made()
+    win.maze = maze
+    maze.render()
+    let btn = document.getElementById('btn')
+    if (btn) {
+      btn.onclick = () => {
+        var points = [];
+        const lead = maze.Lead.lead
+        const actionRoute = lead.userData.actionRoute
+        if (actionRoute && actionRoute.length !== 0) {
+          // 开始运动
+          for (let i = 0; i < actionRoute.length; i++) {
+            const ar = actionRoute[i]
+            // TODO: 20应该为单元格的尺寸 需要动态识别  10是单元格的一半
+            // console.log(ar.x)
+            const v3 = new THREE.Vector3(
+              ar.y * 10 + 5 - 200,
+              20,
+              ar.x * 10 + 5 - 200
+            )
+            points.push(v3);
+          }
+          var material = new THREE.LineBasicMaterial({
+            color: 0xfad97e
+          });
+          var geometry = new THREE.BufferGeometry().setFromPoints(points);
+          var line = new THREE.Line(geometry, material);
+          maze.scene.add(line);
+        } else {
+          alert('充值失败')
         }
-      } else {
-        alert('充值失败')
       }
     }
   }
-  function createEndPoint(point) {
-    var geometry = new THREE.BoxGeometry(4, 4, 4);
-    var material = new THREE.MeshBasicMaterial({ color: 0xffffff });
-    var cube = new THREE.Mesh(geometry, material);
-    cube.position.copy(point)
-  
-    maze.scene.add(cube);
-  }
+}

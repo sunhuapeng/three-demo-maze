@@ -18,7 +18,7 @@ const CameraDefaultPosition = new THREE.Vector3(0, 500, 0);
 export function initScene() {
   let scene: any
   scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x000000); //场景背景色
+  scene.background = new THREE.Color(0x374b79); //场景背景色
   // scene.position.setZ(-200)
   // scene.position.setX(-200)
   // scene.rotation.y = Math.PI * 1.5
@@ -124,7 +124,7 @@ export function helper() {
   return new THREE.AxesHelper(300);
 }
 export function back() {
-  var material = new THREE.MeshPhongMaterial({ color: 0x808080, dithering: true });
+  var material = new THREE.MeshPhongMaterial({ color: 0x374b79, dithering: true });
   var geometry = new THREE.PlaneBufferGeometry(2000, 2000);
   var mesh = new THREE.Mesh(geometry, material);
   mesh.position.set(0, 0, 0);
