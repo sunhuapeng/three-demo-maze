@@ -1,11 +1,9 @@
 import { initScene, initCamera, initRenderer, initRenderer2D, initControls, initAmbientLight, initDirectional, helper, spotLight, spotLightHelper, box, back } from '../createThreeScene/index'
-import CreateLead from '../createLead/index'
-import MadeMap from '../maze-map/index'
-const THREE = require("three");
 const TWEEN = require("@tweenjs/tween.js");
 import '../style/index.less'
 import '../style/clear-style.less'
 import DrawMap from '../draw-map/index';
+require('../mouseHandle/index')
 export default class Made {
   private scene: any //场景
   private camera: any; //相机

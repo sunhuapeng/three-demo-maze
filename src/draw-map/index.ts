@@ -2,6 +2,7 @@ const THREE = require("three");
 import { LoadGltf } from "../loader/index"
 import { MapMaterial } from '../materialBall/index'
 import ComRayPoint from "../comRayPoint/index";
+import GetBox from "../tools/getBox";
 export default class DrawMap {
   map: any
   scene: any
@@ -20,6 +21,9 @@ export default class DrawMap {
           }
         })
       }
+      const size = new GetBox(scene).getSize()
+      scene.position.setX(size.x/2)
+      scene.position.setZ(size.z/2)
       this.scene.add(scene)
       new ComRayPoint(scene)
     })
