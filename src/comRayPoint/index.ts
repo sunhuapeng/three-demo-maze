@@ -8,6 +8,7 @@ export default class ComRayPoint {
   pointArray: any[] = []
   vertices: any = []
   rayArr:any[] = []
+  vectorArray = []
   constructor(map: any) {
     this.map = map
     const mate = this.map
@@ -35,13 +36,14 @@ export default class ComRayPoint {
       for (let j = 0; j < Math.floor(z / 10); j++) {
         // this.pointArray.push(i * 10 - x / 2, y / 10, j * 10 - z / 2)
         // const p = new THREE.Vector3(i * 10 - x / 2, y / 10, j * 10 - z / 2)
-        this.pointArray.push(i * 10, y / 10, j * 10)
+        // this.pointArray.push(i * 10, y / 10, j * 10)
+        
         const p = new THREE.Vector3(i * 10, y / 10, j * 10)
         const pA = []
         p.toArray(pA)
-        // this.pointArray.push(...pA)
-        this.vertices.push(p)
+        this.pointArray.push(...p)
         const bool = this.rayCaster(p)
+        this.vectorArray.push(p)
         // console.log(bool)
         if(bool){
           second.push(0)
@@ -51,7 +53,8 @@ export default class ComRayPoint {
       }
     }
     (window as any).graph = first
-    this.initPoint()
+    ;(window as any).vectorArray = this.vectorArray
+    // this.initPoint()
   }
   initPoint() {
     var geometry = new THREE.BufferGeometry();
@@ -86,7 +89,7 @@ export default class ComRayPoint {
       }
       var intersects = raycaster.intersectObjects(this.rayArr);
       if (intersects.length !== 0) {
-        this.setBox(star)
+        // this.setBox(star)
         return true
       } else {
         return false
