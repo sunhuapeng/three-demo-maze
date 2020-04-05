@@ -35,7 +35,7 @@ export default class HandleBoll {
     comPoint(mesh) {
         const pointArr = (window as any).vectorArray
         count++
-        console.log(count)
+        
         for (let i = 0; i < pointArr.length; i++) {
             const point = pointArr[i]
             const pointInMesh = new GetBox(mesh).in(point)
@@ -51,16 +51,20 @@ export default class HandleBoll {
                 }
             }
         }
+        console.log(star.length(),end.length())
         if(star.length()!==0&&end.length()!==0){
             const graph = (window as any).graph
-            const pointArr = new AstarCreate(star, end, graph)
-            console.log(pointArr)
-            this.setLine(pointArr)
+            const pointArr:any = new AstarCreate(star, end, graph)
+            if(pointArr.length!=0){
+                this.setLine(pointArr)
+            } else {
+                alert('暂无路径')
+            }
         }
     }
     createPoint(p) {
         var geometry = new THREE.SphereGeometry(5, 5, 4);
-        var material = new THREE.MeshNormalMaterial({ color: 0xffff00 });
+        var material = new THREE.MeshNormalMaterial();
         var sphere = new THREE.Mesh(geometry, material);
         sphere.position.copy(p)
         sphere.name = 'endPoint'

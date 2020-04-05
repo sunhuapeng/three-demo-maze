@@ -13,7 +13,7 @@ const container = document.body;
 // 视锥尺寸
 const frustumSize = 1000
 // 镜头默认角度
-const CameraDefaultPosition = new THREE.Vector3(0, 500, 0);
+const CameraDefaultPosition = new THREE.Vector3(200, 500, 0);
 // 创建场景
 export function initScene() {
   let scene: any
@@ -71,7 +71,7 @@ export function initControls(camera: any, renderer: any) {
   );
   // controls.enableRotate = false
   controls.enableKeys = false
-  // controls.target = new THREE.Vector3(100, 0, 100)
+  controls.target = new THREE.Vector3(200, 0, 200)
   // controls.enableDamping = true;
   // controls.dampingFactor = 0.5;
   // controls.screenSpacePanning = true;
