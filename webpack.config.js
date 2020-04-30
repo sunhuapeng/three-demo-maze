@@ -43,8 +43,8 @@ module.exports = {
   },
   devServer: {
     host: "localhost",
-    port: "3001",
-    disableHostCheck: true // 取消host检查
+    port: "4001",
+    disableHostCheck: false // 取消host检查
   },
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx']
