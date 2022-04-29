@@ -15,7 +15,7 @@
     "@babel/runtime": "^7.7.7",
     "@markusende/heatmap.js": "^2.0.6",
     "@tweenjs/tween.js": "^17.4.0",
-    "async": "^2.6.2",
+    "async": "^2.6.4",
     "three": "^0.107.0"
   },
   "devDependencies": {
